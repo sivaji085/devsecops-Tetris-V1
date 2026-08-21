@@ -1,17 +1,4 @@
-import {
-  to = aws_eks_cluster.example
-  id = "EKS_CLUSTER"
-}
 
-import {
-  to = aws_iam_role.example1
-  id = "eks-node-group-cloud"
-}
-
-import {
-  to = aws_eks_node_group.example
-  id = "EKS_CLUSTER:Node-cloud"
-}
 data "aws_iam_policy_document" "assume_role" {
   statement {
     effect = "Allow"
