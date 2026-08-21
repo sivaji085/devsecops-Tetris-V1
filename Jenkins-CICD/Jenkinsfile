@@ -27,14 +27,16 @@ pipeline{
                     -Dsonar.projectKey=Terraform '''
                 }
             }
+        }stage("quality gate"){
+    steps {
+        script {
+            timeout(time: 5, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true, credentialsId: 'Sonar-token'
+            }
         }
-        stage("quality gate"){
-           steps {
-                script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
-                }
-            } 
-        }
+    } 
+}
+     
         stage('TRIVY FS SCAN') {
             steps {
                 sh "trivy fs . > trivyfs.txt"
